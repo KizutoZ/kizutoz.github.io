@@ -1,0 +1,89 @@
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kizu card</title>
+    <link rel="stylesheet" href="css/estilos.css"> 
+<body>
+<audio id="sonido" src="css/bachil.mp3"></audio>
+<script>
+   async function getLastFmTopTracks() {
+    const user = "KizutoZ"; // 
+    const apiKey = "ed6e12b7297f0d98339fae6b2b33381c"; 
+    const response = await fetch(`https://ws.audioscrobbler.com/2.0/?method=user.gettoptracks&user=${user}&api_key=${apiKey}&format=json`);
+    const data = await response.json();
+    
+    return data.toptracks.track.slice(0, 10).map(track => ({
+        name: track.name,
+        image: track.image[2]["#text"] 
+    }));
+}
+
+getLastFmTopTracks().then(tracks => {
+    const container = document.querySelector("#lastfm-cuadro .canciones");
+    container.innerHTML = tracks.map(track => `
+        <div class="cancion">
+            <img src="${track.image}" alt="Portada">
+            <span>${track.name}</span>
+        </div>
+    `).join("");
+});
+document.addEventListener("click", () => {
+    let audio = document.getElementById("sonido");
+    audio.play();
+});
+</script>
+    <header>
+        <h1>Rawr</h1>
+        <p></p>
+    </header>
+
+    <main>
+    
+        <div class="contenedor">
+        <div class="perfil">
+        <img src="./css/basilcute4.jpg" alt="Kizu">
+        <p class="descripcion">Holi, Mi nombre es kizu un gusto </p>
+        <p class="subtexto">20yo, Sta Fe arg, Bisexual, He/Him</p>
+</div>
+        
+        <div class="cuadro" id="lastfm-cuadro">
+        <h3 class="top-titulo">mi top canciones</h3>
+        <div class="canciones"></div>
+    
+</div>
+        <div class="cuadro"><img src="css/basilcute6.jpg" alt="basil bonito" class="imagen-tellonym">
+            <a href="https://tellonym.me/kizutoz" target="_blank" class="link-tellonym">Deja un mensaje anonimo</a>
+           </div>
+        
+        <div class="cuadro"><div class="cuadro" id="redes-cuadro">
+    <h4>Mis redes </h4>
+    <div class="redes">
+        <div class="red">
+            <img src="css/basilcute5.jpg" alt="X">
+            <a href="https://x.com/KizutoZ_" target="_blank">@KizutoZ_ - X</a>
+        </div>
+        <div class="red">
+            <img src="css/basilcute3.jpg" alt="Instagram">
+            <a href="https://www.instagram.com/kizutoz/" target="_blank">@kizutoz - Instagram</a>
+        </div>
+        <div class="red">
+            <img src="css/basilcute1.jpg" alt="Twitch">
+            <a href="https://www.twitch.tv/kizutoz" target="_blank">@kizutoz - Twitch</a>
+        </div>
+        <div class="red">
+            <img src="css/basilcute2.jpg" alt="Steam">
+            <a href="https://steamcommunity.com/id/kizutoZ/" target="_blank">@kizutoZ - Steam</a>
+        </div>
+    </div>
+</div></div>
+    </div>
+    </main>
+
+    <footer>
+        <p>Something...</p>
+
+    </footer>
+
+</body>
+</html>
