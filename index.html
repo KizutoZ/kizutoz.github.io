@@ -1,104 +1,141 @@
+<!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Kizu card</title>
-    <link rel="stylesheet" href="css/estilos.css"> 
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Kizu ✩</title>
+  <link href="https://fonts.googleapis.com/css2?family=VT323&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/estilos.css">
+</head>
 <body>
-<audio id="sonido" src="css/bachil.mp3"></audio>
-<script>
-function removeAccents(str) {
-   return str.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
-}
-
-async function getLastFmTopTracks() {
-   const user = "KizutoZ";
-   const apiKey = "ed6e12b7297f0d98339fae6b2b33381c";
-   const url = `https://ws.audioscrobbler.com/2.0/?method=user.gettoptracks&user=${user}&api_key=${apiKey}&format=json`;
-
-   try {
-      const response = await fetch(url);
-      const data = await response.json();
-
-      return data.toptracks.track.slice(0, 10).map((track, index) => {
-         return {
-            rank: index + 1, // Número del top
-            name: removeAccents(track.name),
-            artist: removeAccents(track.artist.name),
-            playcount: track.playcount
-         };
+  <div class="card-section perfil">
+    <img src="css/basilcute4.jpg" alt="Foto de perfil" class="profile-pic">
+    <h2 class="titulo-kizu"> Kizu </h2>
+  </div>
+  <div class="card-section">
+    <h3 class="titulo-sobremi">Sobre mi</h3>
+    <p>Me llamo kizu, tengo 20 cuando estoy haciendo esto falta poco para cumplir T.T, soy un chico bisexual asi que no juzgo a nadie, me gusta hablar, el futbol, pokemon, los indies y muy fan de Rojuu ✩</p>
+  </div>
+  <div class="card-section scrollable">
+    <h3 class="titulo-top">Mis canciones favoritas</h3>
+    <ol id="top-tracks"></ol>
+  </div>
+  <div class="card-section scrollable">
+    <h3 class="titulo-semana">Mis canciones favoritas esta semana ^^</h3>
+    <ul id="weekly-tracks"></ul>
+  </div>
+<div class="card-section redes">
+  <h3 class="titulo-redes">Mis redes</h3>
+  <div class="fila fila-superior">
+    <div class="social-link">
+      <img src="css/basilcute3.jpg" alt="">
+      <a href="https://www.instagram.com/kizutoz/" target="_blank">Instagram @kizutoz</a>
+    </div>
+    <div class="social-link">
+      <img src="css/basilcute5.jpg" alt="">
+      <a href="" target="_blank">Discord Kizuto.</a>
+    </div>
+    <div class="social-link">
+      <img src="css/basilcute4.jpg" alt="">
+      <a href="https://x.com/KizutoZ_" target="_blank">X @KizutoZ_</a>
+    </div>
+  </div>
+  <div class="fila fila-inferior">
+    <div class="social-link">
+      <img src="css/basilcute2.jpg" alt="">
+      <a href="https://steamcommunity.com/id/kizutoZ/" target="_blank">Steam KizutoXZ</a>
+    </div>
+    <div class="social-link">
+      <img src="css/basilcute1.jpg" alt="">
+      <a href="https://www.twitch.tv/kizutoz" target="_blank">Twitch KizutoZ</a>
+    </div>
+  </div>
+</div>
+<div class="card-section anonimo">
+  <img src="css/basilcute6.jpg" alt="Imagen decorativa" class="anon-img">
+  <h3 class="titulo-anonimo">Mandame un mensaje anonimo si quieres</h3>
+  <a href="https://tellonym.me/kizutoz" target="_blank" class="anon-button">Toca aqui</a>
+</div>
+<div class="card-section juegos">
+  <h3 class="titulo-juegos">Mis juegos y animes favoritos</h3>
+  <div class="juegos-grid">
+    <div class="juego" style="grid-column: 1; grid-row: 1;">
+      <img src="css/Omori.jpg" alt="Omori">
+      <p>Omori</p>
+    </div>
+    <div class="juego" style="grid-column: 2; grid-row: 1;">
+      <img src="css/The binding of isaac.jpg" alt="The Binding of Isaac">
+      <p>The Binding of Isaac</p>
+    </div>
+    <div class="juego" style="grid-column: 3; grid-row: 1;">
+      <img src="css/Terraria.jpg" alt="Terraria">
+      <p>Terraria</p>
+    </div>
+    <div class="juego" style="grid-column: 1 / span 2; grid-row: 2;">
+      <img src="css/Pokemon esmeralda.jpg" alt="Pokemon Esmeralda">
+      <p>Pokemon Esmeralda</p>
+    </div>
+    <div class="juego" style="grid-column: 2 / span 2; grid-row: 2;">
+      <img src="css/Minecraft.jpg" alt="Minecraft">
+      <p>Minecraft</p>
+    </div>
+    <div class="juego" style="grid-column: 1; grid-row: 3;">
+      <img src="css/JJBA.jpg" alt="JoJo's Bizarre Adventure">
+      <p>JoJo's Bizarre Adventure</p>
+    </div>
+    <div class="juego" style="grid-column: 3; grid-row: 3;">
+      <img src="css/Evangelion.jpg" alt="Evangelion">
+      <p>Evangelion</p>
+    </div>
+  </div>
+</div>
+  <audio id="bg-music" loop>
+    <source src="css/OMORI OST - 131 Welcome Again. (slowed).mp3" type="audio/mpeg">
+  </audio>
+  <script>
+    const lastfmUser = "KizutoZ";
+    const apiKey = "ed6e12b7297f0d98339fae6b2b33381c";
+    function removeAccents(str) {
+      return str.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+    }
+    document.addEventListener("click", () => {
+      const audio = document.getElementById("bg-music");
+      audio.volume = 0.5;
+      audio.play().catch(() => {
+        console.log("Autoplay bloqueado por el navegador.");
       });
-   } catch (err) {
-      console.error("Error al obtener tracks:", err);
-      return [];
-   }
-}
-
-getLastFmTopTracks().then(tracks => {
-   const container = document.querySelector("#lastfm-cuadro .canciones");
-
-   container.innerHTML = tracks.map(track => `
-      <div class="cancion">
-         <span>${track.rank}. ${track.name} - ${track.artist} - ${track.playcount} rep</span>
-      </div>
-   `).join("");
+    });
+    fetch(`https://ws.audioscrobbler.com/2.0/?method=user.getTopTracks&user=${lastfmUser}&api_key=${apiKey}&format=json&period=overall&limit=10`)
+      .then(res => res.json())
+      .then(data => {
+        const list = document.getElementById("top-tracks");
+        list.innerHTML = "";
+        const seen = new Set();
+        data.toptracks.track.forEach(track => {
+          const name = removeAccents(track.name);
+          const artist = removeAccents(track.artist.name);
+          const key = `${name} – ${artist}`;
+          if (!seen.has(key)) {
+            seen.add(key);
+            const li = document.createElement("li");
+            li.textContent = `${key} (${track.playcount} escuchas)`;
+            list.appendChild(li);
+          }
+        });
+      });
+    fetch(`https://ws.audioscrobbler.com/2.0/?method=user.getTopTracks&user=${lastfmUser}&api_key=${apiKey}&format=json&period=7day&limit=10`)
+      .then(res => res.json())
+      .then(data => {
+        const list = document.getElementById("weekly-tracks");
+        list.innerHTML = "";
+       data.toptracks.track.forEach((track, index) => {
+    const name = removeAccents(track.name);
+    const artist = removeAccents(track.artist.name);
+    const li = document.createElement("li");
+   li.textContent = `${index + 1}. ${name} – ${artist} (${track.playcount} escuchas)`;
+    list.appendChild(li);
 });
-   document.addEventListener("click", () => {
-      let audio = document.getElementById("sonido");
-      audio.play();
-   });
-</script>
-    <header>
-        <h1>Rawr</h1>
-        <p></p>
-    </header>
-
-    <main>
-    
-        <div class="contenedor">
-        <div class="perfil">
-        <img src="./css/basilcute4.jpg" alt="Kizu">
-        <p class="descripcion">Holi, Mi nombre es kizu un gusto </p>
-        <p class="subtexto">20yo, Sta Fe arg, Bisexual, He/Him</p>
-</div>
-        
-        <div class="cuadro" id="lastfm-cuadro">
-        <h3 class="top-titulo">mi top canciones</h3>
-        <div class="canciones"></div>
-    
-</div>
-        <div class="cuadro"><img src="css/basilcute6.jpg" alt="basil bonito" class="imagen-tellonym">
-            <a href="https://tellonym.me/kizutoz" target="_blank" class="link-tellonym">Deja un mensaje anonimo</a>
-           </div>
-        
-        <div class="cuadro"><div class="cuadro" id="redes-cuadro">
-    <h4>Mis redes </h4>
-    <div class="redes">
-        <div class="red">
-            <img src="css/basilcute5.jpg" alt="X">
-            <a href="https://x.com/KizutoZ_" target="_blank">@KizutoZ_ - X</a>
-        </div>
-        <div class="red">
-            <img src="css/basilcute3.jpg" alt="Instagram">
-            <a href="https://www.instagram.com/kizutoz/" target="_blank">@kizutoz - Instagram</a>
-        </div>
-        <div class="red">
-            <img src="css/basilcute1.jpg" alt="Twitch">
-            <a href="https://www.twitch.tv/kizutoz" target="_blank">@kizutoz - Twitch</a>
-        </div>
-        <div class="red">
-            <img src="css/basilcute2.jpg" alt="Steam">
-            <a href="https://steamcommunity.com/id/kizutoZ/" target="_blank">@kizutoZ - Steam</a>
-        </div>
-    </div>
-</div></div>
-    </div>
-    </main>
-
-    <footer>
-        <p>Something...</p>
-
-    </footer>
-
+      });    
+  </script>
 </body>
 </html>
